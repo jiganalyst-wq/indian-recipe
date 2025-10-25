@@ -1,0 +1,101 @@
+{\rtf1\ansi\ansicpg1252\cocoartf2865
+\cocoatextscaling0\cocoaplatform0{\fonttbl\f0\fswiss\fcharset0 Helvetica;}
+{\colortbl;\red255\green255\blue255;}
+{\*\expandedcolortbl;;}
+\margl1440\margr1440\vieww28600\viewh18000\viewkind0
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\partightenfactor0
+
+\f0\fs24 \cf0 <!DOCTYPE html>\
+<html lang="en">\
+<head>\
+  <meta charset="UTF-8" />\
+  <meta name="viewport" content="width=device-width, initial-scale=1" />\
+  <title>Indian Home Kitchen</title>\
+\
+  <!-- Tailwind CDN -->\
+  <script src="https://cdn.tailwindcss.com"></script>\
+\
+  <!-- Fonts -->\
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Playfair+Display:wght@600&display=swap" rel="stylesheet">\
+\
+  <style>\
+    .title-font \{ font-family: "Playfair Display", serif; \}\
+    .body-font \{ font-family: "Inter", system-ui, sans-serif; \}\
+  </style>\
+</head>\
+<body class="body-font bg-stone-50 text-stone-800">\
+  <!-- Nav -->\
+  <header class="bg-white shadow-sm sticky top-0 z-10">\
+    <div class="max-w-5xl mx-auto flex items-center justify-between p-4">\
+      <a href="index.html" class="flex items-baseline gap-2">\
+        <div class="text-xl font-semibold title-font text-stone-900">Indian Home Kitchen</div>\
+        <div class="text-xs text-stone-500 border border-stone-300 rounded-full px-2 py-0.5">homestyle</div>\
+      </a>\
+      <nav class="text-sm flex gap-4">\
+        <a href="index.html" class="hover:text-stone-900 text-stone-600">Recipes</a>\
+        <a href="ingredients.html" class="hover:text-stone-900 text-stone-600">Pantry</a>\
+      </nav>\
+    </div>\
+  </header>\
+\
+  <!-- Hero -->\
+  <section class="max-w-5xl mx-auto px-4 py-8">\
+    <div class="bg-gradient-to-r from-lime-100 to-emerald-100 rounded-2xl p-6 md:p-10 flex flex-col md:flex-row items-start md:items-center gap-6 shadow">\
+      <div class="flex-1">\
+        <h1 class="title-font text-3xl md:text-4xl font-semibold text-stone-900 leading-tight">\
+          Clean Indian recipes you can actually cook on a weekday.\
+        </h1>\
+        <p class="mt-3 text-stone-700 text-base md:text-lg leading-relaxed">\
+          High-protein, simple ingredients, no drama. All pulled from our family spreadsheet.\
+        </p>\
+      </div>\
+      <div class="text-sm bg-white/70 rounded-xl shadow px-4 py-3 border border-white min-w-[180px]">\
+        <div class="font-semibold text-stone-800">Quick picks</div>\
+        <ul class="mt-2 space-y-1 text-stone-700" id="quick-picks"></ul>\
+      </div>\
+    </div>\
+  </section>\
+\
+  <!-- Recipe list -->\
+  <section class="max-w-5xl mx-auto px-4 pb-16">\
+    <h2 class="title-font text-2xl font-semibold text-stone-900 mb-4 flex items-center justify-between">\
+      All Recipes\
+      <span class="text-sm font-normal text-stone-500" id="recipe-count"></span>\
+    </h2>\
+\
+    <div id="recipe-grid" class="grid gap-4">\
+      <!-- Cards injected by JS -->\
+    </div>\
+  </section>\
+\
+  <script src="recipes.js"></script>\
+  <script>\
+    // count\
+    document.getElementById("recipe-count").textContent = RECIPES.length + " total";\
+\
+    // recipe cards (text only)\
+    const grid = document.getElementById("recipe-grid");\
+    RECIPES.forEach(r => \{\
+      const card = document.createElement("a");\
+      card.href = `recipe.html?id=$\{encodeURIComponent(r.id)\}`;\
+      card.className =\
+        "bg-white rounded-xl shadow hover:shadow-lg transition-shadow border border-stone-200 p-4 block";\
+      card.innerHTML = `\
+        <div class="text-xs text-emerald-700 font-medium uppercase tracking-wide">$\{r.category || ""\}</div>\
+        <div class="title-font text-lg font-semibold text-stone-900 mt-1">$\{r.name\}</div>\
+        <div class="text-sm text-stone-600 mt-2 line-clamp-2">$\{r.notes || ""\}</div>\
+      `;\
+      grid.appendChild(card);\
+    \});\
+\
+    // quick picks list\
+    const qp = document.getElementById("quick-picks");\
+    RECIPES.slice(0,3).forEach(r => \{\
+      const li = document.createElement("li");\
+      li.innerHTML = `<a class="underline decoration-dotted hover:text-stone-900" href="recipe.html?id=$\{encodeURIComponent(r.id)\}">$\{r.name\}</a>`;\
+      qp.appendChild(li);\
+    \});\
+  </script>\
+</body>\
+</html>\
+}
